@@ -27,7 +27,7 @@ public class ClientConsoleImpl implements ClientConsole {
 
   @RequestMapping(path = "/startRequest", method = RequestMethod.POST)
   public String startRequest(@RequestBody RequestParam requestParam) {
-    LOGGER.info("start loop, name = [{}]", requestParam.getName());
+    LOGGER.info("start loop, requestParam = {}", requestParam);
     for (int i = 0; i < requestParam.getTimes(); ++i) {
       LOGGER.info("invoke#[{}], name = [{}]", i, requestParam.getName());
       String result = null;
@@ -41,7 +41,7 @@ public class ClientConsoleImpl implements ClientConsole {
       }
       LOGGER.info("invoke#[{}], name = [{}], result = [{}]", i, requestParam.getName(), result);
     }
-    LOGGER.info("done, name = [{}]", requestParam.getName());
+    LOGGER.info("done, requestParam = [{}]", requestParam);
     return "done";
   }
 
@@ -49,6 +49,6 @@ public class ClientConsoleImpl implements ClientConsole {
     if (requestParam.getInterval() > 0) {
       Thread.sleep(requestParam.getInterval());
     }
-    return hello.sayHello(new HelloRequest(index, requestParam.getName()));
+    return hello.sayHello(new HelloRequest(index, requestParam.getName()), requestParam.getNumber());
   }
 }

@@ -4,7 +4,6 @@ import javax.ws.rs.core.MediaType;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -14,6 +13,7 @@ import com.github.yhs0092.hello.Hello;
 import com.github.yhs0092.hello.HelloRequest;
 
 import io.servicecomb.provider.rest.common.RestSchema;
+import io.servicecomb.serviceregistry.RegistryUtils;
 
 @RestSchema(schemaId = "hello")
 @RequestMapping(path = "/hello", produces = MediaType.APPLICATION_JSON)
@@ -25,12 +25,10 @@ public class HelloImpl implements Hello {
 
   private StatusSwitch statusSwitch = StatusSwitch.NORMAL;
 
-  @Value("${server.name}")
-  private String serverName;
-
   @RequestMapping(path = "/sayHello", method = RequestMethod.PUT)
   @Override
-  public String sayHello(@RequestBody HelloRequest helloRequest) throws Exception {
+  public String sayHello(@RequestBody HelloRequest helloRequest, @RequestParam(name = "number") int number)
+      throws Exception {
     LOGGER.info("sayHello is called, helloRequest = {}, status = {}", helloRequest, statusSwitch);
     switch (statusSwitch) {
       case NORMAL:
@@ -61,6 +59,6 @@ public class HelloImpl implements Hello {
   }
 
   private String getGreeting(@RequestParam(value = "name") String name) {
-    return serverName + ": " + HELLO_PREFIX + name;
+    return RegistryUtils.getMicroserviceInstance().getInstanceId() + ": " + HELLO_PREFIX + name;
   }
 }

@@ -15,15 +15,15 @@
   </modules>
 
   <properties>
-    <java-chassis.version>0.4.1-SNAPSHOT</java-chassis.version>
+    <cse.version>2.2.31</cse.version>
   </properties>
 
   <dependencyManagement>
     <dependencies>
       <dependency>
-        <groupId>io.servicecomb</groupId>
-        <artifactId>java-chassis-dependencies</artifactId>
-        <version>${java-chassis.version}</version>
+        <groupId>com.huawei.paas.cse</groupId>
+        <artifactId>cse-dependency</artifactId>
+        <version>${cse.version}</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>

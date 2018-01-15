@@ -5,16 +5,31 @@ service_description:
 cse:
   service:
     registry:
-      address: http://127.0.0.1:30100
+      address: https://cse.cn-north-1.myhwclouds.com:443
+      instance:
+        watch: false
+  config:
+    client:
+      serverUri: https://cse.cn-north-1.myhwclouds.com:443
+      refreshMode: 1
+      refresh_interval: 5000
+  monitor:
+    client:
+      serverUri: https://cse.cn-north-1.myhwclouds.com:443
   rest:
     address: 0.0.0.0:18080
-  metrics:
-    enabled: false
+  references:
+    loadbalance-isolation-server:
+      version-rule: 0.0.0+
   handler:
     chain:
       Consumer:
         default: loadbalance
   loadbalance:
+    serverListFilters: darklaunch
+    serverListFilter:
+      darklaunch:
+        className: com.huawei.paas.darklaunch.DarklaunchServerListFilter
     isolation:
       enabled: true
       errorThresholdPercentage: 50
@@ -22,3 +37,7 @@ cse:
       singleTestTime: 5000
       continuousFailureThreshold: 5
     NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RoundRobinRule
+  credentials:
+    accessKey: ak
+    secretKey: sk
+    akskCustomCipher: default

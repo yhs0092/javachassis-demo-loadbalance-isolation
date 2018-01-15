@@ -3,6 +3,8 @@ package com.github.yhs0092.client.console;
 public class RequestParam {
   private String name;
 
+  private int number;
+
   /**
    * how many requests to send
    */
@@ -40,10 +42,20 @@ public class RequestParam {
     return this;
   }
 
+  public int getNumber() {
+    return number;
+  }
+
+  public RequestParam setNumber(int number) {
+    this.number = number;
+    return this;
+  }
+
   @Override
   public String toString() {
     final StringBuilder sb = new StringBuilder("RequestParam{");
     sb.append("name='").append(name).append('\'');
+    sb.append(", number=").append(number);
     sb.append(", times=").append(times);
     sb.append(", interval=").append(interval);
     sb.append('}');

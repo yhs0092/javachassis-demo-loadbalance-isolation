@@ -1,6 +1,9 @@
 # JavaChassis-Demo-Loadbalance-Isolation
 
 > This demo is designed to show loadbalance isolation feature of JavaChassis.
+>
+> This is an independent-console edition demo. You can deploy this demo on the HuaweiCloud.
+> See details on [http://www.huaweicloud.com/product/cse.html](http://www.huaweicloud.com/product/cse.html).
 
 ## Start up configuration
 
