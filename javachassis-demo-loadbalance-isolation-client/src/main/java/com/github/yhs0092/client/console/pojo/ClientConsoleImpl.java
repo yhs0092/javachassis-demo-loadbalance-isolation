@@ -2,6 +2,9 @@ package com.github.yhs0092.client.console.pojo;
 
 import javax.ws.rs.core.MediaType;
 
+import org.apache.servicecomb.provider.pojo.RpcReference;
+import org.apache.servicecomb.provider.rest.common.RestSchema;
+import org.apache.servicecomb.swagger.invocation.exception.InvocationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -12,10 +15,6 @@ import com.github.yhs0092.client.console.ClientConsole;
 import com.github.yhs0092.client.console.RequestParam;
 import com.github.yhs0092.hello.Hello;
 import com.github.yhs0092.hello.HelloRequest;
-
-import io.servicecomb.provider.pojo.RpcReference;
-import io.servicecomb.provider.rest.common.RestSchema;
-import io.servicecomb.swagger.invocation.exception.InvocationException;
 
 @RestSchema(schemaId = "clientconsole")
 @RequestMapping(path = "/clientconsole", produces = MediaType.APPLICATION_JSON)
