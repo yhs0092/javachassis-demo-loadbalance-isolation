@@ -2,6 +2,7 @@ package com.github.yhs0092.hello.springmvc;
 
 import javax.ws.rs.core.MediaType;
 
+import org.apache.servicecomb.provider.rest.common.RestSchema;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -12,8 +13,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.github.yhs0092.hello.Hello;
 import com.github.yhs0092.hello.HelloRequest;
-
-import io.servicecomb.provider.rest.common.RestSchema;
 
 @RestSchema(schemaId = "hello")
 @RequestMapping(path = "/hello", produces = MediaType.APPLICATION_JSON)

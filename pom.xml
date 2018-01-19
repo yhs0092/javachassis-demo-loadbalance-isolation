@@ -15,13 +15,13 @@
   </modules>
 
   <properties>
-    <java-chassis.version>0.4.1-SNAPSHOT</java-chassis.version>
+    <java-chassis.version>0.6.0-SNAPSHOT</java-chassis.version>
   </properties>
 
   <dependencyManagement>
     <dependencies>
       <dependency>
-        <groupId>io.servicecomb</groupId>
+        <groupId>org.apache.servicecomb</groupId>
         <artifactId>java-chassis-dependencies</artifactId>
         <version>${java-chassis.version}</version>
         <type>pom</type>
