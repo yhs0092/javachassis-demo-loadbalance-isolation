@@ -11,6 +11,10 @@
 
   <artifactId>javachassis-demo-loadbalance-isolation-client</artifactId>
 
+  <properties>
+    <MainClass>com.github.yhs0092.client.AppClient</MainClass>
+  </properties>
+
   <dependencies>
     <dependency>
       <groupId>com.github.yhs0092</groupId>
@@ -44,6 +48,26 @@
         <configuration>
           <skip>true</skip>
         </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-shade-plugin</artifactId>
+        <version>1.2.1</version>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>shade</goal>
+            </goals>
+            <configuration>
+              <transformers>
+                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                  <mainClass>${MainClass}</mainClass>
+                </transformer>
+              </transformers>
+            </configuration>
+          </execution>
+        </executions>
       </plugin>
     </plugins>
   </build>
