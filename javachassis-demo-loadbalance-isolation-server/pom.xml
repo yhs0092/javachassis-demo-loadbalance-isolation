@@ -12,7 +12,7 @@
   <artifactId>javachassis-demo-loadbalance-isolation-server</artifactId>
 
   <properties>
-    <MainClass>com.github.yhs0092.AppServer</MainClass>
+    <app.class>com.github.yhs0092.AppServer</app.class>
   </properties>
 
   <dependencies>
@@ -49,25 +49,69 @@
           <skip>true</skip>
         </configuration>
       </plugin>
+      <!--<plugin>-->
+      <!--<groupId>org.apache.maven.plugins</groupId>-->
+      <!--<artifactId>maven-shade-plugin</artifactId>-->
+      <!--<version>2.4.3</version>-->
+      <!--<configuration>-->
+      <!--<createDependencyReducedPom>false</createDependencyReducedPom>-->
+      <!--</configuration>-->
+      <!--<executions>-->
+      <!--<execution>-->
+      <!--<phase>package</phase>-->
+      <!--<goals>-->
+      <!--<goal>shade</goal>-->
+      <!--</goals>-->
+      <!--<configuration>-->
+      <!--<transformer implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">-->
+      <!--<resource>META-INF/spring.handlers</resource>-->
+      <!--</transformer>-->
+      <!--<transformer implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">-->
+      <!--<resource>META-INF/spring.schemas</resource>-->
+      <!--</transformer>-->
+      <!--<transformers>-->
+      <!--<transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">-->
+      <!--<mainClass>${MainClass}</mainClass>-->
+      <!--</transformer>-->
+      <!--</transformers>-->
+      <!--</configuration>-->
+      <!--</execution>-->
+      <!--</executions>-->
+      <!--</plugin>-->
+      <!-- executable jar package -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-shade-plugin</artifactId>
-        <version>1.2.1</version>
+        <artifactId>maven-dependency-plugin</artifactId>
+        <version>2.10</version>
         <executions>
           <execution>
+            <id>copy-dependencies</id>
             <phase>package</phase>
             <goals>
-              <goal>shade</goal>
+              <goal>copy-dependencies</goal>
             </goals>
             <configuration>
-              <transformers>
-                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                  <mainClass>${MainClass}</mainClass>
-                </transformer>
-              </transformers>
+              <outputDirectory>target/lib</outputDirectory>
             </configuration>
           </execution>
         </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <version>2.6</version>
+        <configuration>
+          <archive>
+            <manifest>
+              <addClasspath>true</addClasspath>
+              <classpathPrefix>./lib/</classpathPrefix>
+              <mainClass>${app.class}</mainClass>
+            </manifest>
+            <manifestEntries>
+              <Class-Path>.</Class-Path>
+            </manifestEntries>
+          </archive>
+        </configuration>
       </plugin>
     </plugins>
   </build>
