@@ -15,7 +15,7 @@
   </modules>
 
   <properties>
-    <cse.version>2.2.28</cse.version>
+    <cse.version>2.3.6</cse.version>
   </properties>
 
   <dependencyManagement>

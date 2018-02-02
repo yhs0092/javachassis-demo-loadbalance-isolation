@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.github.yhs0092.hello.Hello;
 import com.github.yhs0092.hello.HelloRequest;
 
-import io.servicecomb.provider.rest.common.RestSchema;
-import io.servicecomb.serviceregistry.RegistryUtils;
+import org.apache.servicecomb.provider.rest.common.RestSchema;
+import org.apache.servicecomb.serviceregistry.RegistryUtils;
 
 @RestSchema(schemaId = "hello")
 @RequestMapping(path = "/hello", produces = MediaType.APPLICATION_JSON)
