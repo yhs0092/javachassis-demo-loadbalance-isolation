@@ -1,11 +1,14 @@
 package com.github.yhs0092.client.console;
 
+import java.util.List;
+
 import org.apache.servicecomb.provider.rest.common.RestSchema;
 import org.apache.servicecomb.provider.springmvc.reference.RestTemplateBuilder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.client.RestTemplate;
 
+import com.github.yhs0092.hello.common.BaseArea;
 import com.github.yhs0092.hello.common.Holder;
 import com.github.yhs0092.hello.common.Person;
 
@@ -29,5 +32,12 @@ public class Client {
         .append(":")
         .append(result.getData().getName());
     return response.toString();
+  }
+
+  @GetMapping(path="/getHolderListArea")
+  public String testGetHolderListArea(){
+    Holder<List<BaseArea>> result = restTemplate.postForObject("cse://loadbalance-isolation-server/generic/getHolderListArea",null,Holder.class);
+
+    return result.toString();
   }
 }
