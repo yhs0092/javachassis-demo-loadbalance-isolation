@@ -24,19 +24,28 @@ cse:
   handler:
     chain:
       Consumer:
-        default: loadbalance
+        default: qps-flowcontrol-consumer,loadbalance
   loadbalance:
     serverListFilters: darklaunch
     serverListFilter:
       darklaunch:
         className: com.huawei.paas.darklaunch.DarklaunchServerListFilter
-    isolation:
-      enabled: true
-      errorThresholdPercentage: 50
-      enableRequestThreshold: 3
-      singleTestTime: 5000
-      continuousFailureThreshold: 5
-    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RoundRobinRule
+#    isolation:
+#      enabled: true
+#      errorThresholdPercentage: 50
+#      enableRequestThreshold: 3
+#      singleTestTime: 5000
+#      continuousFailureThreshold: 5
+#    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RoundRobinRule
+  flowcontrol:
+    Consumer:
+      qps:
+        enabled: true
+        limit:
+          loadbalance-isolation-server:
+            hello:
+              sayHello: 10
+              getStatus: 10
   credentials:
     accessKey: ak
     secretKey: sk

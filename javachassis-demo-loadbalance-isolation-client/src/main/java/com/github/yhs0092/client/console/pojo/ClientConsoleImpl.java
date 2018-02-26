@@ -50,4 +50,31 @@ public class ClientConsoleImpl implements ClientConsole {
     }
     return hello.sayHello(new HelloRequest(index, requestParam.getName()), requestParam.getNumber());
   }
+
+  @RequestMapping(path = "/startGetStatus", method = RequestMethod.POST)
+  public String startGetStatus(@RequestBody RequestParam requestParam) {
+    LOGGER.info("startGetStatus, requestParam = {}", requestParam);
+    for (int i = 0; i < requestParam.getTimes(); ++i) {
+      LOGGER.info("invoke#[{}] getStatus", i, requestParam.getName());
+      String result = null;
+      try {
+        result = getStatus(requestParam, i);
+      } catch (InvocationException e) {
+        LOGGER.error("catch an InvocationException");
+      } catch (Exception e) {
+        LOGGER.error("catch an unexpected exception while invoking server...");
+        e.printStackTrace();
+      }
+      LOGGER.info("invoke#[{}] getStatus, result = [{}]", i, requestParam.getName(), result);
+    }
+    LOGGER.info("startGetStatus done, requestParam = [{}]", requestParam);
+    return "done";
+  }
+
+  private String getStatus(RequestParam requestParam, int index) throws Exception {
+    if (requestParam.getInterval() > 0) {
+      Thread.sleep(requestParam.getInterval());
+    }
+    return hello.getStatus(index);
+  }
 }

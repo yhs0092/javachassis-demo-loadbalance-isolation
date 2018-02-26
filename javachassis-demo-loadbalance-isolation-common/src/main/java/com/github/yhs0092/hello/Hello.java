@@ -5,5 +5,5 @@ public interface Hello {
 
   String setStatus(String statusSwitch);
 
-  String getStatus();
+  String getStatus(int index);
 }
