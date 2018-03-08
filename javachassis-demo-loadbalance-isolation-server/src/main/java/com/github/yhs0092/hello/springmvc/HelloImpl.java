@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.github.yhs0092.hello.Hello;
 import com.github.yhs0092.hello.HelloRequest;
+import com.netflix.config.DynamicProperty;
 
 @RestSchema(schemaId = "hello")
 @RequestMapping(path = "/hello", produces = MediaType.APPLICATION_JSON)
@@ -23,6 +24,13 @@ public class HelloImpl implements Hello {
   public static final String HELLO_PREFIX = "Hello, ";
 
   private StatusSwitch statusSwitch = StatusSwitch.NORMAL;
+
+  public HelloImpl() {
+    DynamicProperty testConfig = DynamicProperty.getInstance("testConfig");
+    testConfig.addCallback(() -> {
+      LOGGER.info("configuration[{}] changed to [{}]!!!!!!", testConfig.getName(), testConfig.getString());
+    });
+  }
 
   @RequestMapping(path = "/sayHello", method = RequestMethod.PUT)
   @Override
