@@ -21,10 +21,6 @@ cse:
   references:
     loadbalance-isolation-server:
       version-rule: 0.0.0+
-  handler:
-    chain:
-      Consumer:
-        default: qps-flowcontrol-consumer,loadbalance
   loadbalance:
     serverListFilters: darklaunch
     serverListFilter:
