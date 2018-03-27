@@ -33,7 +33,7 @@ public class HelloImpl implements Hello {
       case NORMAL:
         return getGreeting(helloRequest.getName());
       case TIME_OUT: {
-        Thread.sleep(1000 * 5);
+        Thread.sleep(1500);
         return getGreeting(helloRequest.getName());
       }
       case THROW_EXCEPTION:

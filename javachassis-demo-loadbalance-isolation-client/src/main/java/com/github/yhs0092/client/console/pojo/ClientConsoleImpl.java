@@ -15,6 +15,7 @@ import com.github.yhs0092.client.console.ClientConsole;
 import com.github.yhs0092.client.console.RequestParam;
 import com.github.yhs0092.hello.Hello;
 import com.github.yhs0092.hello.HelloRequest;
+import com.netflix.config.DynamicProperty;
 
 @RestSchema(schemaId = "clientconsole")
 @RequestMapping(path = "/clientconsole", produces = MediaType.APPLICATION_JSON)
@@ -23,6 +24,16 @@ public class ClientConsoleImpl implements ClientConsole {
 
   @RpcReference(schemaId = "hello", microserviceName = "loadbalance-isolation-server")
   private Hello hello;
+
+  public ClientConsoleImpl() {
+    DynamicProperty dp = DynamicProperty
+        .getInstance("cse.circuitBreaker.Consumer.loadbalance-isolation-server.sleepWindowInMilliseconds");
+    dp.addCallback(() -> {
+      System.out.println(
+          "cse.circuitBreaker.Consumer.loadbalance-isolation-server.sleepWindowInMilliseconds value changed! " + dp
+              .getString());
+    });
+  }
 
   @RequestMapping(path = "/startRequest", method = RequestMethod.POST)
   public String startRequest(@RequestBody RequestParam requestParam) {
@@ -33,9 +44,9 @@ public class ClientConsoleImpl implements ClientConsole {
       try {
         result = sayHello(requestParam, i);
       } catch (InvocationException e) {
-        LOGGER.error("catch an InvocationException");
+        LOGGER.error("catch an InvocationException ", e);
       } catch (Exception e) {
-        LOGGER.error("catch an unexpected exception while invoking server...");
+        LOGGER.error("catch an unexpected exception while invoking server... ", e);
         e.printStackTrace();
       }
       LOGGER.info("invoke#[{}], name = [{}], result = [{}]", i, requestParam.getName(), result);
