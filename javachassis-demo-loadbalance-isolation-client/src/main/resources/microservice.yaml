@@ -2,6 +2,10 @@ APPLICATION_ID: demo-loadbalance-isolation
 service_description:
   name: loadbalance-isolation-client
   version: 0.0.1
+  properties:
+    allowCrossApp: true
+instance_description:
+  environment: development
 cse:
   service:
     registry:
@@ -22,3 +26,8 @@ cse:
       singleTestTime: 5000
       continuousFailureThreshold: 5
     NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RoundRobinRule
+
+servicecomb:
+  accesslog:
+    enabled: true
+    pattern: "%h - - %t %r %s %B %SCB-traceId %{server-header}o"

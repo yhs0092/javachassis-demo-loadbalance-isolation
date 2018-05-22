@@ -12,10 +12,11 @@
     <module>javachassis-demo-loadbalance-isolation-server</module>
     <module>javachassis-demo-loadbalance-isolation-client</module>
     <module>javachassis-demo-loadbalance-isolation-common</module>
+    <module>javachassis-demo-loadbalance-isolation-edge</module>
   </modules>
 
   <properties>
-    <java-chassis.version>0.6.0-SNAPSHOT</java-chassis.version>
+    <java-chassis.version>1.0.0-m2-SNAPSHOT</java-chassis.version>
   </properties>
 
   <dependencyManagement>
