@@ -1,0 +1,22 @@
+cse-config-order: 100
+
+APPLICATION_ID: demo-loadbalance-isolation
+service_description:
+  name: edge
+  version: 0.0.1
+instance_description:
+  environment: development
+
+cse:
+  service:
+    registry:
+      address: http://127.0.0.1:30100
+  rest:
+    address: 0.0.0.0:18070
+  metrics:
+    enabled: false
+
+servicecomb:
+  accesslog:
+    enabled: true
+    pattern: "%h - - %t %r %s %B %SCB-traceId %{server-header}o"
