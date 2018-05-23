@@ -2,6 +2,8 @@ APPLICATION_ID: demo-loadbalance-isolation
 service_description:
   name: loadbalance-isolation-server
   version: 0.0.1
+  properties:
+    allowCrossApp: true
 cse:
   service:
     registry:
@@ -22,3 +24,9 @@ cse:
     accessKey: ak
     secretKey: sk
     akskCustomCipher: default
+
+
+servicecomb:
+  accesslog:
+    enabled: true
+    pattern: "%h - - %t %r %s %B %SCB-traceId %{server-header}o"

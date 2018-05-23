@@ -1,4 +1,4 @@
-APPLICATION_ID: demo-loadbalance-isolation
+APPLICATION_ID: demo-loadbalance-isolation2
 service_description:
   name: loadbalance-isolation-client
   version: 0.0.1
@@ -21,10 +21,12 @@ cse:
   references:
     loadbalance-isolation-server:
       version-rule: 0.0.0+
-  handler:
-    chain:
-      Consumer:
-        default: qps-flowcontrol-consumer,loadbalance
+  isolation:
+    Consumer:
+      timeout:
+        enabled: true
+      timeoutInMilliseconds: 1000
+
   loadbalance:
     serverListFilters: darklaunch
     serverListFilter:
@@ -49,3 +51,8 @@ cse:
     accessKey: ak
     secretKey: sk
     akskCustomCipher: default
+
+servicecomb:
+  accesslog:
+    enabled: true
+    pattern: "%h - - %t %r %s %B %SCB-traceId"

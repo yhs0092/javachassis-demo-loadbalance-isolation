@@ -1,0 +1,68 @@
+---
+swagger: "2.0"
+info:
+  version: "1.0.0"
+  title: "swagger definition for com.github.yhs0092.hello.springmvc.HelloImpl"
+  x-java-interface: "com.github.yhs0092.hello.Hello"
+basePath: "/hello"
+consumes:
+- "application/json"
+produces:
+- "application/json"
+paths:
+  /sayHello:
+    put:
+      operationId: "sayHello"
+      parameters:
+      - in: "body"
+        name: "helloRequest"
+        required: false
+        schema:
+          $ref: "#/definitions/HelloRequest"
+      - name: "number"
+        in: "query"
+        required: false
+        schema:
+          type: "integer"
+        format: "int32"
+      responses:
+        200:
+          description: "response of 200"
+          schema:
+            type: "string"
+  /status:
+    get:
+      operationId: "getStatus"
+      parameters:
+      - name: "index"
+        in: "query"
+        required: false
+        type: "integer"
+        format: "int32"
+      responses:
+        200:
+          description: "response of 200"
+          schema:
+            type: "string"
+    put:
+      operationId: "setStatus"
+      parameters:
+      - name: "status"
+        in: "query"
+        required: false
+        type: "string"
+      responses:
+        200:
+          description: "response of 200"
+          schema:
+            type: "string"
+definitions:
+  HelloRequest:
+    type: "object"
+    properties:
+      index:
+        type: "integer"
+        format: "int32"
+      name:
+        type: "string"
+    x-java-class: "com.github.yhs0092.hello.HelloRequest"

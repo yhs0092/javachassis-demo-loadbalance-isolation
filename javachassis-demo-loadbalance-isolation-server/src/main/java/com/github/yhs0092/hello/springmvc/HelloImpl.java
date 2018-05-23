@@ -34,7 +34,7 @@ public class HelloImpl implements Hello {
 
   @RequestMapping(path = "/sayHello", method = RequestMethod.PUT)
   @Override
-  public String sayHello(@RequestBody HelloRequest helloRequest, @RequestParam(name = "number") int number)
+  public String sayHello(@RequestBody HelloRequest helloRequest, @RequestParam(name = "number") String number)
       throws Exception {
     LOGGER.info("sayHello is called, helloRequest = {}, status = {}", helloRequest, statusSwitch);
     switch (statusSwitch) {

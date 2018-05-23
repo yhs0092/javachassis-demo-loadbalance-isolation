@@ -1,7 +1,7 @@
 package com.github.yhs0092.hello;
 
 public interface Hello {
-  String sayHello(HelloRequest helloRequest, int number) throws Exception;
+  String sayHello(HelloRequest helloRequest, String number) throws Exception;
 
   String setStatus(String statusSwitch);
 
