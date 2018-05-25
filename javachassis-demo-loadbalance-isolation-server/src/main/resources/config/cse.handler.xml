@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+  <handler id="addContextHandler" class="com.github.yhs0092.hello.handler.AddContextHandler"/>
+</config>

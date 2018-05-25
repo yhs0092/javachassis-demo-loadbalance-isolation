@@ -16,6 +16,10 @@ cse:
     enabled: false
 
 servicecomb:
+  handler:
+    chain:
+      Provider:
+        default: addContextHandler
   accesslog:
     enabled: true
-    pattern: "%h - - %t %r %s %B %SCB-traceId %{server-header}o"
+    pattern: "%h - - %t %r %s %B %SCB-traceId %{server-header}o %{edgeContext}SCB-ctx %{clientContext}SCB-ctx %{serverContext}SCB-ctx"

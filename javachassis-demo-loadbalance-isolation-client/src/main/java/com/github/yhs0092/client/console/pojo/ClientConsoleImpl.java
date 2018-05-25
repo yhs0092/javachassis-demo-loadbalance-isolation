@@ -4,6 +4,7 @@ import javax.ws.rs.core.MediaType;
 
 import org.apache.servicecomb.provider.pojo.RpcReference;
 import org.apache.servicecomb.provider.rest.common.RestSchema;
+import org.apache.servicecomb.swagger.invocation.context.ContextUtils;
 import org.apache.servicecomb.swagger.invocation.exception.InvocationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,6 +28,7 @@ public class ClientConsoleImpl implements ClientConsole {
   @RequestMapping(path = "/startRequest", method = RequestMethod.POST)
   public String startRequest(@RequestBody RequestParam requestParam) {
     LOGGER.info("start loop, name = [{}]", requestParam.getName());
+    ContextUtils.getInvocationContext().addContext("clientContext", "clientValue" + System.currentTimeMillis());
     for (int i = 0; i < requestParam.getTimes(); ++i) {
       LOGGER.info("invoke#[{}], name = [{}]", i, requestParam.getName());
       String result = null;
