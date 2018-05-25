@@ -8,6 +8,7 @@ import javax.ws.rs.core.MediaType;
 
 import org.apache.servicecomb.provider.pojo.RpcReference;
 import org.apache.servicecomb.provider.rest.common.RestSchema;
+import org.apache.servicecomb.swagger.invocation.context.ContextUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -29,6 +30,7 @@ public class ClientConsoleReactive {
   @RequestMapping(path = "/startRequest", method = RequestMethod.POST)
   public CompletableFuture<List<HelloRequest>> startRequest(@RequestBody RequestParam requestParam) {
     LOGGER.info("start loop, name = [{}]", requestParam.getName());
+    ContextUtils.getInvocationContext().addContext("clientContext", "clientValue" + System.currentTimeMillis());
     CompletableFuture<List<HelloRequest>> completableFuture = new CompletableFuture<>();
     List<CompletableFuture<HelloRequest>> futures = new ArrayList<>(requestParam.getTimes());
     List<HelloRequest> responseList = new ArrayList<>(requestParam.getTimes());
