@@ -20,7 +20,7 @@ public class HelloImpl implements Hello {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(Hello.class);
 
-  public static final String HELLO_PREFIX = "Hello, ";
+  private static final String HELLO_PREFIX = "Hello, ";
 
   private StatusSwitch statusSwitch = StatusSwitch.NORMAL;
 
@@ -28,7 +28,7 @@ public class HelloImpl implements Hello {
   @Override
   public String sayHello(@RequestBody HelloRequest helloRequest, @RequestParam(name = "number") int number)
       throws Exception {
-    LOGGER.info("sayHello is called, helloRequest = {}, status = {}", helloRequest, statusSwitch);
+    LOGGER.info("sayHello is called, helloRequest = {}, status = {}, number = {}", helloRequest, statusSwitch, number);
     switch (statusSwitch) {
       case NORMAL:
         return getGreeting(helloRequest.getName());
