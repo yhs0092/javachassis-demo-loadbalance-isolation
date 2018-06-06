@@ -44,7 +44,7 @@ public class ClientConsoleImpl implements ClientConsole {
     return "done";
   }
 
-  private String sayHello(@RequestBody RequestParam requestParam, int index) throws Exception {
+  private String sayHello(RequestParam requestParam, int index) throws Exception {
     if (requestParam.getInterval() > 0) {
       Thread.sleep(requestParam.getInterval());
     }

@@ -59,7 +59,7 @@ public class HelloImpl implements Hello {
     return this.statusSwitch.toString();
   }
 
-  private String getGreeting(@RequestParam(value = "name") String name) {
+  private String getGreeting(String name) {
     return serverName + ": " + HELLO_PREFIX + name;
   }
 }
