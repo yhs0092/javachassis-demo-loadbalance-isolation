@@ -47,6 +47,7 @@ public class HelloImpl implements Hello {
   @Override
   public String setStatus(@RequestParam(name = "status") String statusSwitch) {
     LOGGER.info("set status to {}", statusSwitch);
+    statusSwitch = statusSwitch.toUpperCase();
     this.statusSwitch = StatusSwitch.valueOf(statusSwitch);
     return "OK";
   }
@@ -57,7 +58,7 @@ public class HelloImpl implements Hello {
     return this.statusSwitch.toString();
   }
 
-  private String getGreeting(@RequestParam(value = "name") String name) {
+  private String getGreeting(String name) {
     return RegistryUtils.getMicroserviceInstance().getInstanceId() + ": " + HELLO_PREFIX + name;
   }
 }

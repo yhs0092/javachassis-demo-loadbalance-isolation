@@ -36,6 +36,7 @@ public class HelloReactiveImpl implements HelloReactive {
   @Override
   public CompletableFuture<String> setStatus(@RequestParam(name = "status") String statusSwitch) {
     LOGGER.info("set status to {}", statusSwitch);
+    statusSwitch = statusSwitch.toUpperCase();
     CompletableFuture<String> completableFuture = new CompletableFuture<>();
     try {
       this.statusSwitch = StatusSwitch.valueOf(statusSwitch);
