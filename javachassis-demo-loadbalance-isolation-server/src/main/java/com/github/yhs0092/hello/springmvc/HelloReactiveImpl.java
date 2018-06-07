@@ -15,8 +15,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.github.yhs0092.hello.HelloReactive;
 import com.github.yhs0092.hello.HelloRequest;
 
-import io.vertx.core.json.JsonObject;
-
 @RestSchema(schemaId = "reactiveHello")
 @RequestMapping(path = "/reactiveHello", produces = MediaType.APPLICATION_JSON)
 public class HelloReactiveImpl implements HelloReactive {
@@ -38,6 +36,7 @@ public class HelloReactiveImpl implements HelloReactive {
   @Override
   public CompletableFuture<String> setStatus(@RequestParam(name = "status") String statusSwitch) {
     LOGGER.info("set status to {}", statusSwitch);
+    statusSwitch = statusSwitch.toUpperCase();
     CompletableFuture<String> completableFuture = new CompletableFuture<>();
     try {
       this.statusSwitch = StatusSwitch.valueOf(statusSwitch);

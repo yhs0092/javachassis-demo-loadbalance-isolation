@@ -4,7 +4,6 @@ APPLICATION_ID: demo-loadbalance-isolation
 service_description:
   name: edge
   version: 0.0.1
-instance_description:
   environment: development
 
 cse:

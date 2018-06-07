@@ -7,4 +7,8 @@ public interface ClientConsole {
    * @return result of invocation
    */
   String startRequest(RequestParam requestParam);
+
+  String getStatus();
+
+  String setStatus(String status, int times, long interval);
 }

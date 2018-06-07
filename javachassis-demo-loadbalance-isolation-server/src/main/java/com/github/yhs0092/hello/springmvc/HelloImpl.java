@@ -3,9 +3,9 @@ package com.github.yhs0092.hello.springmvc;
 import javax.ws.rs.core.MediaType;
 
 import org.apache.servicecomb.provider.rest.common.RestSchema;
+import org.apache.servicecomb.serviceregistry.RegistryUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -23,9 +23,6 @@ public class HelloImpl implements Hello {
   public static final String HELLO_PREFIX = "Hello, ";
 
   private StatusSwitch statusSwitch = StatusSwitch.NORMAL;
-
-  @Value("${server.name}")
-  private String serverName;
 
   @RequestMapping(path = "/sayHello", method = RequestMethod.PUT)
   @Override
@@ -49,6 +46,7 @@ public class HelloImpl implements Hello {
   @Override
   public String setStatus(@RequestParam(name = "status") String statusSwitch) {
     LOGGER.info("set status to {}", statusSwitch);
+    statusSwitch = statusSwitch.toUpperCase();
     this.statusSwitch = StatusSwitch.valueOf(statusSwitch);
     return "OK";
   }
@@ -60,6 +58,6 @@ public class HelloImpl implements Hello {
   }
 
   private String getGreeting(String name) {
-    return serverName + ": " + HELLO_PREFIX + name;
+    return RegistryUtils.getMicroserviceInstance().getInstanceId() + ": " + HELLO_PREFIX + name;
   }
 }

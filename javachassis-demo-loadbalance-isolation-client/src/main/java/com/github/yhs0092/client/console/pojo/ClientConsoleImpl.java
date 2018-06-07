@@ -50,4 +50,35 @@ public class ClientConsoleImpl implements ClientConsole {
     }
     return hello.sayHello(new HelloRequest(index, requestParam.getName()));
   }
+
+  @RequestMapping(path = "/getStatus", method = RequestMethod.GET)
+  @Override
+  public String getStatus() {
+    LOGGER.info("getStatus is called");
+    String result = hello.getStatus();
+    LOGGER.info("getStatus is called, result = [{}]", result);
+    return result;
+  }
+
+  @RequestMapping(path = "/setStatus", method = RequestMethod.POST)
+  @Override
+  public String setStatus(
+      @org.springframework.web.bind.annotation.RequestParam("status") String status,
+      @org.springframework.web.bind.annotation.RequestParam("times") int times,
+      @org.springframework.web.bind.annotation.RequestParam("interval") long interval) {
+    LOGGER.info("setStatus is called, start loop, status = [{}], time = [{}], interval = [{}]",
+        status, times, interval);
+    for (int i = 0; i < times; ++i) {
+      if (interval > 0) {
+        try {
+          Thread.sleep(interval);
+        } catch (InterruptedException e) {
+          e.printStackTrace();
+        }
+      }
+      String result = hello.setStatus(status);
+      LOGGER.info("invoke#[{}], result = [{}]", i, result);
+    }
+    return "done";
+  }
 }
