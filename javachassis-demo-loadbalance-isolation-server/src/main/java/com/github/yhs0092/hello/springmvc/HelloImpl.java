@@ -54,6 +54,7 @@ public class HelloImpl implements Hello {
   @RequestMapping(path = "/status", method = RequestMethod.GET)
   @Override
   public String getStatus() {
+    LOGGER.info("getStatus is called");
     return this.statusSwitch.toString();
   }
 

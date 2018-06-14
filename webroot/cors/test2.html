@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.10/angular.min.js"></script>
+<body>
+
+<div ng-app="remoteApp" ng-controller="remoteCtrl">
+
+  <p>Invoke remote site:</p>
+
+  <p>{{remoteCall}}</p>
+
+</div>
+
+<script>
+var remoteApp = angular.module('remoteApp', []);
+remoteApp.controller('remoteCtrl', function($scope, $http) {
+  $http.get("https://www.w3schools.com/angular/welcome.htm")
+  .then(function(response) {
+      $scope.remoteCall = response.data;
+  });
+});
+
+
+</script>
+
+</body>
+</html>
