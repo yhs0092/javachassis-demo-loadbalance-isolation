@@ -24,7 +24,8 @@ public class ApiDispatcher extends AbstractEdgeDispatcher {
   @Override
   public void init(Router router) {
     String regex = "/api/([^/]+)/([^/]+)/(.*)";
-    router.route().handler(CorsHandler.create("w3schools\\.com").allowedMethod(HttpMethod.GET));
+    // allow cors
+    router.route().handler(CorsHandler.create("*").allowedMethod(HttpMethod.GET));
     // for debug purpose, the file caching is disabled
     router.route("/static/*").handler(StaticHandler.create().setCachingEnabled(false));
     router.routeWithRegex(regex).handler(CookieHandler.create());
