@@ -45,10 +45,26 @@ public class HelloImpl implements Hello {
   @RequestMapping(path = "/status", method = RequestMethod.PUT)
   @Override
   public String setStatus(@RequestParam(name = "status") String statusSwitch) {
-    LOGGER.info("set status to {}", statusSwitch);
+    LOGGER.info("put status to {}", statusSwitch);
     statusSwitch = statusSwitch.toUpperCase();
     this.statusSwitch = StatusSwitch.valueOf(statusSwitch);
-    return "OK";
+    return "PUT_OK";
+  }
+
+  @RequestMapping(path = "/status", method = RequestMethod.POST)
+  public String postStatus(@RequestParam(name = "status") String statusSwitch) {
+    LOGGER.info("post status to {}", statusSwitch);
+    statusSwitch = statusSwitch.toUpperCase();
+    this.statusSwitch = StatusSwitch.valueOf(statusSwitch);
+    return "POST_OK";
+  }
+
+  @RequestMapping(path = "/status", method = RequestMethod.DELETE)
+  public String deleteStatus(@RequestParam(name = "status") String statusSwitch) {
+    LOGGER.info("delete status to {}", statusSwitch);
+    statusSwitch = statusSwitch.toUpperCase();
+    this.statusSwitch = StatusSwitch.valueOf(statusSwitch);
+    return "DELETE_OK";
   }
 
   @RequestMapping(path = "/status", method = RequestMethod.GET)
