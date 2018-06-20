@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<div>
+
+  <p>Invoke result:</p>
+
+  <p id="result"></p>
+
+  <select id="method">
+    <option value="GET">GET</option>
+    <option value="POST">POST</option>
+    <option value="PUT">PUT</option>
+    <option value="DELETE">DELETE</option>
+  </select>
+
+  <br/>
+  <button type="button" onclick="send()">SEND</button>
+
+</div>
+
+<script>
+function send(){
+  var method=document.getElementById("method").value;
+  <!--alert(method);-->
+  result=document.getElementById("result");
+  result.innerHTML="invoking";
+
+  var xmlHttp = new XMLHttpRequest();
+  var url = "http://192.168.0.45:18081/hello/status";
+
+  xmlHttp.onreadystatechange = function() {
+    if(200===this.status){
+      <!--alert(this.responseText);-->
+      result.innerHTML=this.responseText;
+    }
+  };
+
+  if("GET"===method){
+    xmlHttp.open("GET", url, true);
+  }else if("PUT"===method){
+    xmlHttp.open("PUT", url+"?status=NORMAL", true);
+  }else if("POST"===method){
+    xmlHttp.open("POST", url+"?status=NORMAL", true);
+  }else if("DELETE"===method){
+    xmlHttp.open("DELETE", url+"?status=NORMAL", true);
+  }else{
+    alert("unexpected method");
+  }
+
+  xmlHttp.send();
+
+}
+
+
+
+
+
+
+</script>
+
+</body>
+</html>

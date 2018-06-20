@@ -18,3 +18,10 @@ servicecomb:
   accesslog:
     enabled: true
     pattern: "%h - - %t %r %s %B %SCB-traceId %{server-header}o"
+  cors:
+    enabled: true
+    origin: "*"
+    allowedHeader: abc,def
+    allowedMethod: GET,POST,DELETE
+    exposedHeader: abc,def
+    maxAge: 1
