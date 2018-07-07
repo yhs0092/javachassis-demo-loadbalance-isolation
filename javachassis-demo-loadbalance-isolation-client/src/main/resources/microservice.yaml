@@ -4,14 +4,13 @@ service_description:
   version: 0.0.1
   properties:
     allowCrossApp: true
-instance_description:
   environment: development
 cse:
   service:
     registry:
       address: http://127.0.0.1:30100
-  rest:
-    address: 0.0.0.0:18080
+#  rest:
+#    address: 0.0.0.0:18080
   metrics:
     enabled: false
   handler:
@@ -30,4 +29,10 @@ cse:
 servicecomb:
   accesslog:
     enabled: true
-    pattern: "%D %h - - %t %r %s %B %SCB-traceId %{server}-header}o %{edgeContext}SCB-ctx %{clientContext}SCB-ctx %{serverContext}SCB-ctx"
+#    pattern: "%D %h - - %t %r %s %B %SCB-traceId %{server}-header}o %{edgeContext}SCB-ctx %{clientContext}SCB-ctx %{serverContext}SCB-ctx"
+    pattern: "%{yyyyMMdd-HH:mm:ss.SSS}t [%s] %D(ms) Remote:[%h] - Local:[%v] %SCB-traceId cs-uri"
+
+  references:
+    demo-loadbalance-isolation:loadbalance-isolation-server:
+        version-rule: 0.0.1
+#servicecomb.references.demo-loadbalance-isolation:loadbalance-isolation-server.version-rule: 0.0.1

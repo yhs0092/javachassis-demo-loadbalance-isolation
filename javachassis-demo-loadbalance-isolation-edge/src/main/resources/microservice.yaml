@@ -4,7 +4,6 @@ APPLICATION_ID: demo-loadbalance-isolation
 service_description:
   name: edge
   version: 0.0.1
-instance_description:
   environment: development
 
 cse:
@@ -23,4 +22,5 @@ servicecomb:
         default: loadbalance,addContextHandler
   accesslog:
     enabled: true
-    pattern: "%D %h - - %t %r %s %B %SCB-traceId %{server-header}o %{edgeContext}SCB-ctx %{clientContext}SCB-ctx %{serverContext}SCB-ctx"
+#    pattern: "%D %h - - %t %r %s %B %SCB-traceId %{server-header}o %{edgeContext}SCB-ctx %{clientContext}SCB-ctx %{serverContext}SCB-ctx"
+    pattern: "%{yyyyMMdd-HH:mm:ss.SSS}t [%s] %D(ms) Remote:[%h] - Local:[%v]:[%p] %SCB-traceId cs-uri"

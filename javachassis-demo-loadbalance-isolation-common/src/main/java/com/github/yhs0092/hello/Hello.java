@@ -1,9 +1,13 @@
 package com.github.yhs0092.hello;
 
 public interface Hello {
-  String sayHello(HelloRequest helloRequest) throws Exception;
+  String sayHello(HelloRequest helloRequest, int orderNum) throws Exception;
 
-  String setStatus(String statusSwitch);
+  String address(String city, String country, String extra);
 
-  String getStatus();
+//  String setStatus(String statusSwitch);
+//
+//  String getStatus();
+//
+//  public void testVoid(String param);
 }

@@ -8,6 +8,7 @@ import org.apache.servicecomb.swagger.invocation.context.ContextUtils;
 import org.apache.servicecomb.swagger.invocation.exception.InvocationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -22,7 +23,7 @@ import com.github.yhs0092.hello.HelloRequest;
 public class ClientConsoleImpl implements ClientConsole {
   private static final Logger LOGGER = LoggerFactory.getLogger(ClientConsoleImpl.class);
 
-  @RpcReference(schemaId = "hello", microserviceName = "loadbalance-isolation-server")
+  @RpcReference(schemaId = "hello", microserviceName = "demo-loadbalance-isolation:loadbalance-isolation-server")
   private Hello hello;
 
   @RequestMapping(path = "/startRequest", method = RequestMethod.POST)
@@ -50,6 +51,29 @@ public class ClientConsoleImpl implements ClientConsole {
     if (requestParam.getInterval() > 0) {
       Thread.sleep(requestParam.getInterval());
     }
-    return hello.sayHello(new HelloRequest(index, requestParam.getName()));
+    return hello.sayHello(new HelloRequest(index, requestParam.getName()),index);
+  }
+
+//  @RequestMapping(path = "/testVoid", method = RequestMethod.POST)
+//  public void testVoid(@org.springframework.web.bind.annotation.RequestParam(name = "param") String param) {
+//    LOGGER.info("testVoid() is called, param = [{}]", param);
+//    hello.testVoid(param);
+//  }
+//
+//  private RestTemplate restTemplate=RestTemplateBuilder.create();
+//  @RequestMapping(path = "/testVoidRestTemplate", method = RequestMethod.POST)
+//  public void testVoidRestTemplate(@org.springframework.web.bind.annotation.RequestParam(name = "param") String param) {
+//    LOGGER.info("testVoidRestTemplate() is called, param = [{}]", param);
+//    ResponseEntity<Void> voidResponseEntity = restTemplate
+//        .postForEntity("cse://loadbalance-isolation-server/hello/testVoid?param=testParam", null, Void.class);
+//    LOGGER.info("testVoidRestTemplate() ended, param = [{}]", param);
+//  }
+
+  @GetMapping(path = "/address")
+  public String address(String city, String country, String extra){
+    LOGGER.info("address is called, city = [{}], country = [{}], extra = [{}]", city, country, extra);
+    final String address = hello.address(city, country, extra);
+    LOGGER.info("address = [{}]", address);
+    return address;
   }
 }

@@ -17,7 +17,7 @@ import com.github.yhs0092.hello.HelloRequest;
 
 import io.vertx.core.json.JsonObject;
 
-@RestSchema(schemaId = "reactiveHello")
+//@RestSchema(schemaId = "reactiveHello")
 @RequestMapping(path = "/reactiveHello", produces = MediaType.APPLICATION_JSON)
 public class HelloReactiveImpl implements HelloReactive {
   private static final Logger LOGGER = LoggerFactory.getLogger(HelloReactiveImpl.class);

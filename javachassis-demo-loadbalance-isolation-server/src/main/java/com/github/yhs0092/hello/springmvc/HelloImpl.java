@@ -1,11 +1,15 @@
 package com.github.yhs0092.hello.springmvc;
 
+import java.util.List;
+
 import javax.ws.rs.core.MediaType;
 
 import org.apache.servicecomb.provider.rest.common.RestSchema;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -29,8 +33,9 @@ public class HelloImpl implements Hello {
 
   @RequestMapping(path = "/sayHello", method = RequestMethod.PUT)
   @Override
-  public String sayHello(@RequestBody HelloRequest helloRequest) throws Exception {
+  public String sayHello(@RequestBody HelloRequest helloRequest, int orderNum) throws Exception {
     LOGGER.info("sayHello is called, helloRequest = {}, status = {}", helloRequest, statusSwitch);
+    LOGGER.info("orderNum = [{}]", orderNum);
     switch (statusSwitch) {
       case NORMAL:
         return getGreeting(helloRequest.getName());
@@ -45,21 +50,46 @@ public class HelloImpl implements Hello {
     }
   }
 
-  @RequestMapping(path = "/status", method = RequestMethod.PUT)
-  @Override
-  public String setStatus(@RequestParam(name = "status") String statusSwitch) {
-    LOGGER.info("set status to {}", statusSwitch);
-    this.statusSwitch = StatusSwitch.valueOf(statusSwitch);
-    return "OK";
-  }
-
-  @RequestMapping(path = "/status", method = RequestMethod.GET)
-  @Override
-  public String getStatus() {
-    return this.statusSwitch.toString();
-  }
+//  @RequestMapping(path = "/status", method = RequestMethod.PUT)
+//  @Override
+//  public String setStatus(@RequestParam(name = "status") String statusSwitch) {
+//    LOGGER.info("set status to {}", statusSwitch);
+//    this.statusSwitch = StatusSwitch.valueOf(statusSwitch);
+//    return "OK";
+//  }
+//
+//  @RequestMapping(path = "/status", method = RequestMethod.GET)
+//  @Override
+//  public String getStatus() {
+//    return this.statusSwitch.toString();
+//  }
 
   private String getGreeting(@RequestParam(value = "name") String name) {
     return serverName + ": " + HELLO_PREFIX + name;
+  }
+
+//  @Override
+//  @RequestMapping(path = "/testVoid", method = RequestMethod.POST)
+//  public void testVoid(@RequestParam(name = "param") String param) {
+//    LOGGER.info("testVoid() is called, param = [{}]", param);
+//  }
+
+  @Override
+  @RequestMapping(value = "/address/ab{city}/{country}/{extra}", method = RequestMethod.GET)
+  public String address(@PathVariable("city") String city, @PathVariable("country") String country, String extra) {
+    LOGGER.info("city is called, city = [{}], country = [{}], extra = [{}]", city, country, extra);
+    return String.format("city = [%s], country = [%s], extra = [%s]", city, country, extra);
+  }
+
+  @GetMapping(value = "/testList")
+  public String testList(List<String> stringList) {
+    LOGGER.info("testList is called, stringList = [{}]", stringList);
+    return stringList.toString();
+  }
+
+  @GetMapping(value = "/testGetObject/abc{helloRequest.helloRequest.index}")
+  public String testGetObject(HelloRequest helloRequest) {
+    LOGGER.info("testGetObject is called, helloRequest = [{}]", helloRequest);
+    return helloRequest.toString();
   }
 }

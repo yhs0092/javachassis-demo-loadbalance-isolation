@@ -7,5 +7,7 @@ public class AppServer {
   public static void main(String[] args) throws Exception {
     Log4jUtils.init();
     BeanUtils.init();
+
+
   }
 }

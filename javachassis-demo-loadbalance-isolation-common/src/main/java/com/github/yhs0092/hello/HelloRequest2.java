@@ -1,16 +1,16 @@
 package com.github.yhs0092.hello;
 
-public class HelloRequest {
+public class HelloRequest2 {
   private int index;
 
   private String name;
 
-  private HelloRequest2 helloRequest;
+  private HelloRequest3 helloRequest;
 
-  public HelloRequest() {
+  public HelloRequest2() {
   }
 
-  public HelloRequest(int index, String name) {
+  public HelloRequest2(int index, String name) {
     this.index = index;
     this.name = name;
   }
@@ -19,7 +19,7 @@ public class HelloRequest {
     return index;
   }
 
-  public HelloRequest setIndex(int index) {
+  public HelloRequest2 setIndex(int index) {
     this.index = index;
     return this;
   }
@@ -28,16 +28,16 @@ public class HelloRequest {
     return name;
   }
 
-  public HelloRequest setName(String name) {
+  public HelloRequest2 setName(String name) {
     this.name = name;
     return this;
   }
 
-  public HelloRequest2 getHelloRequest() {
+  public HelloRequest3 getHelloRequest() {
     return helloRequest;
   }
 
-  public HelloRequest setHelloRequest(HelloRequest2 helloRequest) {
+  public HelloRequest2 setHelloRequest(HelloRequest3 helloRequest) {
     this.helloRequest = helloRequest;
     return this;
   }
