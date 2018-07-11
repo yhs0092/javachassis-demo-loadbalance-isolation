@@ -5,14 +5,14 @@ import java.util.List;
 import javax.ws.rs.core.MediaType;
 
 import org.apache.servicecomb.provider.rest.common.RestSchema;
+import org.apache.servicecomb.swagger.invocation.context.InvocationContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.github.yhs0092.hello.Hello;
@@ -31,9 +31,10 @@ public class HelloImpl implements Hello {
   @Value("${server.name}")
   private String serverName;
 
-  @RequestMapping(path = "/sayHello", method = RequestMethod.PUT)
+  //  @RequestMapping(path = "/sayHello", method = RequestMethod.PUT)
   @Override
-  public String sayHello(@RequestBody HelloRequest helloRequest, int orderNum) throws Exception {
+  public String sayHello(@RequestBody HelloRequest helloRequest, @RequestParam(name = "order") int orderNum)
+      throws Exception {
     LOGGER.info("sayHello is called, helloRequest = {}, status = {}", helloRequest, statusSwitch);
     LOGGER.info("orderNum = [{}]", orderNum);
     switch (statusSwitch) {
@@ -75,21 +76,22 @@ public class HelloImpl implements Hello {
 //  }
 
   @Override
-  @RequestMapping(value = "/address/ab{city}/{country}/{extra}", method = RequestMethod.GET)
+//  @RequestMapping(value = "/address/ab{city}/{country}/{extra}", method = RequestMethod.GET)
   public String address(@PathVariable("city") String city, @PathVariable("country") String country, String extra) {
     LOGGER.info("city is called, city = [{}], country = [{}], extra = [{}]", city, country, extra);
     return String.format("city = [%s], country = [%s], extra = [%s]", city, country, extra);
   }
 
-  @GetMapping(value = "/testList")
+  //  @GetMapping(value = "/testList")
   public String testList(List<String> stringList) {
     LOGGER.info("testList is called, stringList = [{}]", stringList);
     return stringList.toString();
   }
 
-  @GetMapping(value = "/testGetObject/abc{helloRequest.helloRequest.index}")
-  public String testGetObject(HelloRequest helloRequest) {
-    LOGGER.info("testGetObject is called, helloRequest = [{}]", helloRequest);
+  @PostMapping(value = "/testGetObject")
+  public String testGetObject(HelloRequest helloRequest, InvocationContext invocationContext,
+      @RequestParam(name = "idx") int index, @RequestBody HelloRequest requestBody) {
+    LOGGER.info("testGetObject is called, helloRequest = [{}], index = [{}]", helloRequest, index);
     return helloRequest.toString();
   }
 }

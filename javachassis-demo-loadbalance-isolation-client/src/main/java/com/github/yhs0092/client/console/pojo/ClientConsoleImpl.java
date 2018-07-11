@@ -4,14 +4,20 @@ import javax.ws.rs.core.MediaType;
 
 import org.apache.servicecomb.provider.pojo.RpcReference;
 import org.apache.servicecomb.provider.rest.common.RestSchema;
+import org.apache.servicecomb.provider.springmvc.reference.RestTemplateBuilder;
 import org.apache.servicecomb.swagger.invocation.context.ContextUtils;
 import org.apache.servicecomb.swagger.invocation.exception.InvocationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.client.RestTemplate;
 
 import com.github.yhs0092.client.console.ClientConsole;
 import com.github.yhs0092.client.console.RequestParam;
@@ -23,7 +29,7 @@ import com.github.yhs0092.hello.HelloRequest;
 public class ClientConsoleImpl implements ClientConsole {
   private static final Logger LOGGER = LoggerFactory.getLogger(ClientConsoleImpl.class);
 
-  @RpcReference(schemaId = "hello", microserviceName = "demo-loadbalance-isolation:loadbalance-isolation-server")
+  @RpcReference(schemaId = "hello", microserviceName = "loadbalance-isolation-server")
   private Hello hello;
 
   @RequestMapping(path = "/startRequest", method = RequestMethod.POST)
@@ -51,7 +57,18 @@ public class ClientConsoleImpl implements ClientConsole {
     if (requestParam.getInterval() > 0) {
       Thread.sleep(requestParam.getInterval());
     }
-    return hello.sayHello(new HelloRequest(index, requestParam.getName()),index);
+    return hello.sayHello(new HelloRequest(index, requestParam.getName()), index);
+  }
+
+  private RestTemplate restTemplate = RestTemplateBuilder.create();
+
+  @PostMapping(path = "/sayHelloByTemplate")
+  public String sayHelloByTemplate(@RequestBody RequestParam requestParam, int order) {
+    final HttpEntity<HelloRequest> requestEntity = new HttpEntity<>(new HelloRequest(order, requestParam.getName()));
+    final ResponseEntity<String> responseEntity = restTemplate.exchange(
+        "cse://loadbalance-isolation-server/hello/sayHello?order={1}", HttpMethod.PUT,
+        requestEntity, String.class, order);
+    return responseEntity.getBody();
   }
 
 //  @RequestMapping(path = "/testVoid", method = RequestMethod.POST)
@@ -70,7 +87,7 @@ public class ClientConsoleImpl implements ClientConsole {
 //  }
 
   @GetMapping(path = "/address")
-  public String address(String city, String country, String extra){
+  public String address(String city, String country, String extra) {
     LOGGER.info("address is called, city = [{}], country = [{}], extra = [{}]", city, country, extra);
     final String address = hello.address(city, country, extra);
     LOGGER.info("address = [{}]", address);
