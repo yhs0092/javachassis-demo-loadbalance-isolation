@@ -1,20 +1,16 @@
 package com.github.yhs0092.hello;
 
-import java.util.Date;
-
-public class HelloRequest {
+public class HelloRequest2 {
   private int index;
 
   private String name;
 
-  private Date date;
+  private HelloRequest3 helloRequest;
 
-  private HelloRequest2 helloRequest;
-
-  public HelloRequest() {
+  public HelloRequest2() {
   }
 
-  public HelloRequest(int index, String name) {
+  public HelloRequest2(int index, String name) {
     this.index = index;
     this.name = name;
   }
@@ -23,7 +19,7 @@ public class HelloRequest {
     return index;
   }
 
-  public HelloRequest setIndex(int index) {
+  public HelloRequest2 setIndex(int index) {
     this.index = index;
     return this;
   }
@@ -32,25 +28,16 @@ public class HelloRequest {
     return name;
   }
 
-  public HelloRequest setName(String name) {
+  public HelloRequest2 setName(String name) {
     this.name = name;
     return this;
   }
 
-  public Date getDate() {
-    return date;
-  }
-
-  public HelloRequest setDate(Date date) {
-    this.date = date;
-    return this;
-  }
-
-  public HelloRequest2 getHelloRequest() {
+  public HelloRequest3 getHelloRequest() {
     return helloRequest;
   }
 
-  public HelloRequest setHelloRequest(HelloRequest2 helloRequest) {
+  public HelloRequest2 setHelloRequest(HelloRequest3 helloRequest) {
     this.helloRequest = helloRequest;
     return this;
   }
@@ -60,7 +47,6 @@ public class HelloRequest {
     final StringBuilder sb = new StringBuilder("HelloRequest{");
     sb.append("index=").append(index);
     sb.append(", name='").append(name).append('\'');
-    sb.append(", date=").append(date);
     sb.append(", helloRequest=").append(helloRequest);
     sb.append('}');
     return sb.toString();

@@ -20,7 +20,7 @@ import com.github.yhs0092.hello.HelloReactive;
 import com.github.yhs0092.hello.HelloRequest;
 
 @RestSchema(schemaId = "reactiveClient")
-@RequestMapping(path = "/reactiveClient", produces = MediaType.APPLICATION_JSON)
+//@RequestMapping(path = "/reactiveClient", produces = MediaType.APPLICATION_JSON)
 public class ClientConsoleReactive {
   private static final Logger LOGGER = LoggerFactory.getLogger(ClientConsoleReactive.class);
 

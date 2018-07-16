@@ -1,5 +1,6 @@
 package com.github.yhs0092.hello.springmvc;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.ws.rs.core.MediaType;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.github.yhs0092.hello.GenericHolder;
 import com.github.yhs0092.hello.Hello;
 import com.github.yhs0092.hello.HelloRequest;
 
@@ -88,10 +90,15 @@ public class HelloImpl implements Hello {
     return stringList.toString();
   }
 
+  static int counter;
+
   @PostMapping(value = "/testGetObject")
   public String testGetObject(HelloRequest helloRequest, InvocationContext invocationContext,
-      @RequestParam(name = "idx") int index, @RequestBody HelloRequest requestBody) {
-    LOGGER.info("testGetObject is called, helloRequest = [{}], index = [{}]", helloRequest, index);
+      @RequestParam(name = "idx") int index, @RequestBody HelloRequest requestBody, Date today,
+      GenericHolder<String> genericHolder) {
+    LOGGER.info("testGetObject is called, helloRequest = [{}], index = [{}], requestBody = [{}], today = [{}]",
+        helloRequest, index, requestBody, today);
+    LOGGER.info("counter[{}]", ++counter);
     return helloRequest.toString();
   }
 }

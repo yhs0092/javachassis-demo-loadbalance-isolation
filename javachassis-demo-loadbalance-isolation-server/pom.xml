@@ -12,11 +12,11 @@
   <artifactId>javachassis-demo-loadbalance-isolation-server</artifactId>
 
   <dependencies>
-    <dependency>
-      <groupId>com.github.yhs0092</groupId>
-      <artifactId>javachassis-demo-loadbalance-isolation-common</artifactId>
-      <version>${project.version}</version>
-    </dependency>
+    <!--<dependency>-->
+      <!--<groupId>com.github.yhs0092</groupId>-->
+      <!--<artifactId>javachassis-demo-loadbalance-isolation-common</artifactId>-->
+      <!--<version>${project.version}</version>-->
+    <!--</dependency>-->
     <dependency>
       <groupId>org.apache.servicecomb</groupId>
       <artifactId>provider-springmvc</artifactId>

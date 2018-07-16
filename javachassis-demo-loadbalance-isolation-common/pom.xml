@@ -10,6 +10,12 @@
   <modelVersion>4.0.0</modelVersion>
 
   <artifactId>javachassis-demo-loadbalance-isolation-common</artifactId>
+  <dependencies>
+    <dependency>
+      <groupId>org.apache.servicecomb</groupId>
+      <artifactId>swagger-invocation-core</artifactId>
+    </dependency>
+  </dependencies>
 
 
 </project>

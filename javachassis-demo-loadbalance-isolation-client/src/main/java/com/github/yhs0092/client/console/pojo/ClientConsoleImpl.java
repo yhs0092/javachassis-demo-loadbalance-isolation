@@ -1,5 +1,7 @@
 package com.github.yhs0092.client.console.pojo;
 
+import java.util.Date;
+
 import javax.ws.rs.core.MediaType;
 
 import org.apache.servicecomb.provider.pojo.RpcReference;
@@ -92,5 +94,15 @@ public class ClientConsoleImpl implements ClientConsole {
     final String address = hello.address(city, country, extra);
     LOGGER.info("address = [{}]", address);
     return address;
+  }
+
+  @GetMapping(path = "/testQueryObject")
+  public String testQueryObject() {
+    LOGGER.info("testQueryObject is called");
+    String result = hello
+        .testGetObject(12, "test0", new Date(), 11, new HelloRequest().setName("test1").setDate(new Date()),
+            new Date(), "str", 233, "StringData");
+    LOGGER.info("result = [{}]", result);
+    return result;
   }
 }
